@@ -46,13 +46,12 @@ class App {
           //}
     
           STUDENTS.push(await this.attendanceCheck(MONTH, DATE, DAY, STUDENTS));
-          console.log(STUDENTS);
         }
         else if (SELECT_MENU === '2') {
-          
+
         }
         else if (SELECT_MENU === '3') {
-          
+          await this.checkAttendanceList(STUDENTS);
         }
         else if (SELECT_MENU === '4') {
           
@@ -69,7 +68,13 @@ class App {
     }
   }
 
-  editAttendance() {
+  async checkAttendanceList(students) {
+    const NAME = await this.inputView.printInput('닉네임을 입력해주세요.\n');
+    const FILTERED_STUDENT = students.filter((student) => student.nickName === NAME);
+
+    FILTERED_STUDENT.forEach((student) => {
+      this.outputView.printOutput(`${student.month}월 ${student.day}일 ${this.DAY_DATA.get(new Date(student.dateTime).getDay())} ${student.hour}:${student.min} ${student.state}`);
+    })
 
   }
 
