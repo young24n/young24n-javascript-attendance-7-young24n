@@ -7,13 +7,19 @@ import OutputView from './OutputView.js';
             this.nickName = nickName;
             this.dateTime = dateTime;
             this.state = '';
+            this.year = '';
+            this.month = '';
+            this.day = '';
+            this.hour = '';
+            this.min = '';
                
         }
 
-        stateReturn(dateTime, ) {
-            const [ATTENDANCE_YEAR, ATTENDANCE_TIME] = dateTime.split(' ');
+        stateReturn(dateTime) {
+            const [ATTENDANCE_DATE, ATTENDANCE_TIME] = dateTime.split(' ');
             const [ATTENDANCE_HOUR, ATTENDANCE_MIN] = ATTENDANCE_TIME.split(':').map(Number);
-            const DAY = new Date(ATTENDANCE_YEAR).getDay();
+            const [ATTENDANCE_YEAR, ATTENDANCE_MONTH, ATTENDANCE_DAY] = ATTENDANCE_DATE.split('-');
+            const DAY = new Date(ATTENDANCE_DATE).getDay();
             let attendanceState = '출석';
 
             if(ATTENDANCE_HOUR > 24 || ATTENDANCE_MIN > 60 || /[^\d]{1,}/.test(ATTENDANCE_HOUR) || /[^\d]{1,}/.test(ATTENDANCE_MIN) ) {
@@ -54,6 +60,11 @@ import OutputView from './OutputView.js';
               }
             }
             this.state = attendanceState;
+            this.year = ATTENDANCE_YEAR;
+            this.month = ATTENDANCE_MONTH;
+            this.day = ATTENDANCE_DAY;
+            this.hour = ATTENDANCE_HOUR;
+            this.min = ATTENDANCE_MIN;
         }
     }
 
