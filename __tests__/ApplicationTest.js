@@ -82,25 +82,23 @@ describe("테스트", () => {
     });
   });
 
+  test("등록되지 않은 닉네임 예외 테스트", async () => {
+    mockNowDate("2024-12-13");
+
+    await runExceptions({
+      inputs: ["1", "빈봉"],
+      inputsToTerminate: INPUTS_TO_TERMINATE,
+      expectedErrorMessage: "[ERROR] 등록되지 않은 닉네임입니다.",
+    });
+  });
+
   test("주말 또는 공휴일 예외 테스트", async () => {
     mockNowDate("2024-12-14");
 
     await runExceptions({
       inputs: ["1"],
       inputsToTerminate: INPUTS_TO_TERMINATE,
-      expectedErrorMessage:
-        "[ERROR] 12월 14일 토요일은 등교하는 날이 아닙니다.",
-    });
-  });
-
-  test("등록되지 않은 닉네임 예외 테스트", async () => {
-    mockNowDate("2024-12-25");
-
-    await runExceptions({
-      inputs: ["1"],
-      inputsToTerminate: INPUTS_TO_TERMINATE,
-      expectedErrorMessage:
-        "[ERROR] 12월 25일 수요일은 등교하는 날이 아닙니다.",
+      expectedErrorMessage: "[ERROR] 12월 14일 토요일은 등교하는 날이 아닙니다.",
     });
   });
 
