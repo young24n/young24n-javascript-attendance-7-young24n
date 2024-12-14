@@ -11,12 +11,16 @@ class ReadFile {
     dataCleansing() {
         const DATA = this.readAttendances();
         let ROW_DATA = DATA.split("\r\n");
-        ROW_DATA.shift()
-        ROW_DATA.pop()
+        ROW_DATA.shift();
+        ROW_DATA.pop();
 
-        const STUDENTS = ROW_DATA.map(line => new Student(...line.split(/,/)))
-        
-        return STUDENTS
+
+        const STUDENTS = ROW_DATA.map(line => new Student(...line.split(/,/)));
+        STUDENTS.forEach(student => {
+            student.stateReturn(student.dateTime);
+        });
+
+        return STUDENTS;
     }
 
 }
