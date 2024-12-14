@@ -45,7 +45,8 @@ class App {
             //this.outputView.printError(`${MONTH}월 ${DATE}일 ${this.DAY_DATA.get(DAY)}은 등교하는 날이 아닙니다.`);
           //}
     
-          await this.attendanceCheck(MONTH, DATE, DAY, STUDENTS);
+          STUDENTS.push(await this.attendanceCheck(MONTH, DATE, DAY, STUDENTS));
+          console.log(STUDENTS);
         }
         else if (SELECT_MENU === '2') {
           
@@ -68,7 +69,12 @@ class App {
     }
   }
 
+  editAttendance() {
+
+  }
+
   async attendanceCheck(MONTH,DATE,DAY,student) {
+    const YEAR = MissionUtils.DateTimes.now().getFullYear();
     const NAME = await this.inputView.printInput('닉네임을 입력해주세요.\n');
     this.validateName(student, NAME);
     const ATTENDANCE_TIME = await this.inputView.printInput('등교시간을 입력해주세요.\n');
@@ -114,7 +120,8 @@ class App {
     }
 
     this.outputView.printOutput(`${MONTH}월 ${DATE}일 ${this.DAY_DATA.get(DAY)} ${ATTENDANCE_TIME} (${attendanceState})`);
-    new Student(NAME,)
+    
+    return new Student(NAME, `${YEAR}-${MONTH}-${DATE} ${ATTENDANCE_TIME}`);
   }
 
   validateName(students, name) {
