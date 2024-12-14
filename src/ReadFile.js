@@ -14,9 +14,8 @@ class ReadFile {
         ROW_DATA.shift()
         ROW_DATA.pop()
 
-        const STUDENTS = ROW_DATA.map(line => new Student(line.split(',')))
-        STUDENTS.forEach(student => student.readStudentAttendance());
-
+        const STUDENTS = ROW_DATA.map(line => new Student(...line.split(/,/)))
+        
         return STUDENTS
     }
 
